@@ -13,11 +13,13 @@ const router = createRouter({
       name: "feed",
       component: HomeView,
       props: true,
-      beforeEnter: (to) => {
-        return ["best", "new", "subs"].includes(to.params.feedType)
-          ? true
-          : "/feed/best";
-      },
+      beforeEnter: [
+        (to) => {
+          return ["best", "new", "subs"].includes(to.params.feedType)
+            ? true
+            : "/feed/best";
+        },
+      ],
     },
 
     {
