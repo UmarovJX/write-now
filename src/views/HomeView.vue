@@ -1,23 +1,38 @@
 <script setup>
 // import { RouterLink } from "vue-router";
-import { useFeedStore } from "../stores/Feed";
-import { ref, watch } from "vue";
-import { useRoute } from "vue-router";
+import { watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { useGlobalState } from "../stores/GlobalState";
+
+import FeedPagination from "../components/FeedPagination.vue";
+import PostList from "../components/PostList.vue";
+
+import { usePosts } from "../helpers/usePosts";
+const { posts, num, getPosts } = usePosts();
+const globalState = useGlobalState();
 const route = useRoute();
-const feedStore = useFeedStore();
+const router = useRouter();
 const props = defineProps(["feedType"]);
-const feed = ref(props.feedType + "Feed");
+if (props.feedType === "subs" && !globalState.value.user)
+  router.push({ name: "feed", params: { feedType: "best" } });
+getPosts(props.feedType, route.query);
 watch(
-  () => route.params,
-  (toParams) => {
-    feed.value = toParams.feedType + "Feed";
+  () => [route.params, route.query],
+  () => {
+    getPosts(props.feedType, route.query);
+    window.scrollTo(0, 0);
   }
 );
 </script>
 
 <template>
-  <div v-for="post in feedStore[feed]" :key="post.rating">
-    <h2>{{ post.title }}</h2>
-    <p>{{ new Date(post.date) }} ||| {{ post.rating }}</p>
+  <div v-if="posts.length > 0">
+    <post-list :posts="posts"> </post-list>
+    <feed-pagination
+      :limit="+route.query.limit"
+      :page="+route.query.page"
+      :num="num"
+      :feed-type="props.feedType"
+    ></feed-pagination>
   </div>
 </template>

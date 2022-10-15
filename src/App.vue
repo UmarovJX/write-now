@@ -1,19 +1,13 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+import { RouterView } from "vue-router";
+import AppHeader from "./components/AppHeader.vue";
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/feed/best">Best</RouterLink> |
-        <RouterLink to="/feed/new">New</RouterLink> |
-        <RouterLink to="/feed/subs">Subs</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <div class="flex-col w-full min-h-screen">
+    <AppHeader class="container mx-auto" />
+    <RouterView class="container mx-auto" />
+  </div>
 </template>
 
-<style scoped></style>
+<style></style>
