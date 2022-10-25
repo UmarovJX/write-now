@@ -55,6 +55,8 @@
 import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import BaseInput from "../components/base/BaseInput.vue";
+import { useGlobalState } from "../stores/GlobalState";
+const globalState = useGlobalState();
 
 const router = useRouter();
 const errorClasses = "border-red-600 focus:border-red-600 focus:outline-none";
@@ -92,7 +94,7 @@ const sendForm = async () => {
   if (loginError.value || emailError.value || passwordError.value) return;
   formError.value = "";
   try {
-    const response = await fetch("http://127.0.0.1:3000/api/auth/register", {
+    const response = await fetch(globalState.value.apiPath + "/auth/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -110,6 +112,7 @@ const sendForm = async () => {
       alert(JSON.stringify(data));
       return;
     }
+    alert(response.status);
     router.push({ name: "login" });
   } catch (error) {
     formError.value = error.message;

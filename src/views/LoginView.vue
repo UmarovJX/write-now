@@ -63,7 +63,7 @@ const passwordError = computed(() => {
 
 const sendForm = async () => {
   if (loginError.value || passwordError.value) return;
-  fetch("http://127.0.0.1:3000/api/auth/login", {
+  fetch(globalState.value.apiPath + "/auth/login", {
     credentials: "include",
     method: "POST",
     headers: {
