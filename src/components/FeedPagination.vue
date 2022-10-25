@@ -17,7 +17,9 @@
       {{ +props.page + 1 }}
     </button>
 
-    <button v-if="props.page < props.num - 1" disabled>&#x2026;</button>
+    <button v-if="props.page < props.num - 1 && props.num > 3" disabled>
+      &#x2026;
+    </button>
     <button @click="changeRoute(props.num)" v-if="props.page < props.num">
       {{ props.num }}
     </button>

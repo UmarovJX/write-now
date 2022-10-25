@@ -25,6 +25,13 @@ const globalState = useGlobalState();
         :min="1"
         :max="30"
       ></BaseInput>
+      <br />
+      <BaseInput
+        class="p-1 ml-3 border rounded-lg bg-teal-100 border-gray-700 block"
+        type="text"
+        v-model="globalState.apiPath"
+        label="Api URL:"
+      ></BaseInput>
     </fieldset>
   </div>
 </template>

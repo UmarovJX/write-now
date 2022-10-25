@@ -7,7 +7,7 @@ export const useGlobalState = createGlobalState(() =>
       queryLimit: 5,
       commentLimit: 20,
       user: null,
-      apiPath: "http://127.0.0.1:3000/api",
+      apiPath: "http://31.42.56.11:3000/api",
     },
     localStorage,
     { mergeDefaults: true }
