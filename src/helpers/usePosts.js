@@ -14,7 +14,6 @@ export const usePosts = () => {
       "/posts?" +
       `feedType=${feedType}&limit=${query.limit}&page=${query.page}` +
       (feedType === "user" ? `&userId=${query.userId}` : "");
-
     const resp = await fetch(queryString, { credentials: "include" }).then(
       (res) => res.json()
     );
